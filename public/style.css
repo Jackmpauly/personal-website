@@ -1,0 +1,79 @@
+:root {
+    --font-primary: 'Source Serif Pro';
+
+    --very-dark-grey: #222;
+    --dark-grey: #555;
+    --light-grey: #DADADA;
+    --very-light-grey: #f8f8f8;
+
+    --text-primary: color(--very-dark-grey);
+    --text-secondary: color(--dark-grey);
+}
+
+body {
+    font-family: var(--font-primary), serif;
+    color: var(--text-primary);
+}
+
+.main {
+    margin: 30px 10%;
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: normal;
+}
+
+p {
+    font-size: 16px;
+}
+
+h2 {
+    font-size: 28px;
+}
+
+h2 span {
+    position: relative;
+    top: 4px;
+}
+
+h2 img {
+    height: 28px;
+    vertical-align: middle;
+}
+
+.unstyled-link {
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.link-block {
+    display: block;
+    border: 1px solid var(--light-grey);
+    border-radius: 5px;
+    padding: 10px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin: 10px 0;
+}
+
+.link-block:hover {
+    background-color: var(--very-light-grey);
+}
+
+.link-block b {
+    display: block;
+    color: var(--text-primary);
+}
+
+@media screen and (min-width: 800px) {
+    .main {
+        margin: 30px;
+        width: 600px;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+    }
+}
