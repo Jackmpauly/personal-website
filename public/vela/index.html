@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vela</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Serif+Pro">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/styles/default.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.1/build/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/languages/bash.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script>
+        document.querySelectorAll('div.code').forEach(el => {
+            hljs.highlightElement(el);
+        });
+    </script>
+
+    <link rel='stylesheet' href='../root.css'>
+</head>
+<body>
+    <div class='main'>
+        <a href="/" class='home-link'><span>&#8592;</span> Home</a>
+        <h1>Vela</h1>
+        <p>A Python framework for Gemini servers.</p>
+
+        <h2>Usage</h2>
+
+        A minimal example:
+
+        <div class='code'><code class='language-bash'>
+            pip install vela
+            # Generate an SSL certificate and private key. Using OpenSSL:
+            openssl req -x509 -newkey rsa:4096 -out cert.pem -keyout key.pem -days 365 -nodes -subj '/CN=localhost'
+        </code></div>
+
+        <div class='code'><code class='language-python'>
+            from vela import Server
+            app = Server(cert='cert.pem', key='key.pem')
+
+            @app.route('/')
+            def hello(req, res):
+                res.send_file('hello.gmi')
+            
+            PORT = 5000
+            print(f'Server is listening on port {PORT}...')
+            app.listen(PORT)
+        </code></div>
+    </div>
+</body>
+</html>

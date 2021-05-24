@@ -23,28 +23,30 @@ h1 {
     font-size: 50px;
     font-weight: normal;
 }
-
 p {
     font-size: 16px;
 }
-
 h2 {
     font-size: 28px;
 }
-
-h2 span {
-    position: relative;
-    top: 4px;
+div > code {
+    white-space: pre-line;
 }
 
-h2 img {
-    height: 28px;
-    vertical-align: middle;
+.home-link {
+    text-decoration: none;
+}
+.home-link span {
+    font-family: arial;
+    font-size: 1.7rem;
 }
 
-.unstyled-link {
+.discrete-link {
     text-decoration: none;
     color: var(--text-primary);
+}
+.discrete-link:hover span {
+    text-decoration: underline;
 }
 
 .link-block {
@@ -56,14 +58,21 @@ h2 img {
     text-decoration: none;
     margin: 10px 0;
 }
-
 .link-block:hover {
     background-color: var(--very-light-grey);
 }
-
 .link-block b {
     display: block;
     color: var(--text-primary);
+}
+
+.text-with-icon span {
+    position: relative;
+    top: 2px;
+}
+.text-with-icon img {
+    height: 1em;
+    vertical-align: middle;
 }
 
 @media screen and (min-width: 800px) {
