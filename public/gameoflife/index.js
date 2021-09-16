@@ -16,6 +16,14 @@ class Simulation {
         console.log('Initialized board:', this.board)
     }
 
+    clearBoard = () => {
+        for (let r = 0; r < this.rows; r++) {
+            for (let c = 0; c < this.cols; c++) {
+                this.board[r][c] = false
+            }
+        }
+    }
+
     randomizeBoard = () => {
         for (let r = 0; r < this.rows; r++) {
             for (let c = 0; c < this.cols; c++) {
@@ -80,9 +88,10 @@ const ROWS = Math.floor(HEIGHT / CELL_SIZE)
 const COLS = Math.floor(WIDTH / CELL_SIZE)
 
 const sim = new Simulation(ROWS, COLS)
+sim.randomizeBoard()
 
 let frameCount = 0
-let paused = true
+let paused = false
 
 const cellAt = (x, y) => [Math.floor(y / CELL_SIZE), Math.floor(x / CELL_SIZE)]
 
@@ -96,6 +105,10 @@ document.addEventListener('keypress', e => {
             break
         case 's':
             if (paused) sim.step()
+            break
+        case 'c':
+            sim.clearBoard()
+            paused = true
             break
     }
 })
@@ -116,7 +129,8 @@ function animate() {
     ctx.fillStyle = '#090D0C'
     ctx.fillRect(-20, -20, WIDTH+20, HEIGHT+20)
 
-    ctx.fillStyle = '#01301F'
+    // ctx.fillStyle = '#01301F'
+    ctx.fillStyle = '#1E362E'
     const FONT = 'monospace'
     const BIG_FONT_HEIGHT = 275
     ctx.font = `${BIG_FONT_HEIGHT}px ${FONT}`
@@ -125,10 +139,11 @@ function animate() {
     const LINE_HEIGHT = 40
     const FONT_HEIGHT = 35
     ctx.font = `${FONT_HEIGHT}px ${FONT}`
-    ctx.fillText('Press \'r\' to randomize.', WIDTH/2, HEIGHT/2 + BIG_FONT_HEIGHT/2)
-    ctx.fillText('Press \'p\' to play/pause.', WIDTH/2, HEIGHT/2 + BIG_FONT_HEIGHT/2 + 1*LINE_HEIGHT)
-    ctx.fillText('Press \'s\' to step while paused.', WIDTH/2, HEIGHT/2 + BIG_FONT_HEIGHT/2 + 2*LINE_HEIGHT)
-    ctx.fillText('Click to revive/kill cell.', WIDTH/2, HEIGHT/2 + BIG_FONT_HEIGHT/2 + 3*LINE_HEIGHT)
+    ctx.fillText('R to randomize.', WIDTH/2, HEIGHT/2 + BIG_FONT_HEIGHT/2)
+    ctx.fillText('P to play/pause.', WIDTH/2, HEIGHT/2 + BIG_FONT_HEIGHT/2 + 1*LINE_HEIGHT)
+    ctx.fillText('S to step while paused.', WIDTH/2, HEIGHT/2 + BIG_FONT_HEIGHT/2 + 2*LINE_HEIGHT)
+    ctx.fillText('C to clear the board.', WIDTH/2, HEIGHT/2 + BIG_FONT_HEIGHT/2 + 3*LINE_HEIGHT)
+    ctx.fillText('Click to revive/kill cell.', WIDTH/2, HEIGHT/2 + BIG_FONT_HEIGHT/2 + 4*LINE_HEIGHT)
 
     ctx.fillStyle = '#C1FAD6'
     for (let r = 0; r < ROWS; r++) {
