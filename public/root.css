@@ -15,6 +15,25 @@ body {
     color: var(--text-primary);
 }
 
+.link-to-code {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+}
+.link-to-code img {
+    width: 40px;
+    opacity: 50%;
+    transition-duration: 0.1s;
+}
+.link-to-code:hover img {
+    opacity: 100%;
+}
+@media screen and (max-width: 700px) {
+    .link-to-code {
+        display: none;
+    }
+}
+
 .main {
     margin: 30px 10%;
 }
@@ -56,6 +75,7 @@ div > code {
     padding: 10px;
     color: var(--text-secondary);
     text-decoration: none;
+    line-height: 1.5rem;
     margin: 10px 0;
 }
 .link-block:hover {
@@ -75,7 +95,7 @@ div > code {
     vertical-align: middle;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 700px) {
     .main {
         margin: 30px;
         width: 600px;
