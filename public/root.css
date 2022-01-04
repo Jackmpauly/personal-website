@@ -53,6 +53,7 @@ div > code {
 }
 
 .home-link {
+	display: block;
     text-decoration: none;
 }
 .home-link span {
