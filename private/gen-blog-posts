@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 blog_posts_in="./blog-posts"
 blog_posts_out="../public/blog"
 blog_post_index="$blog_posts_out/index.html"
@@ -9,10 +8,23 @@ index="
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel='stylesheet' href='..root.css'>
+    <link rel='stylesheet' href='../root.css'>
+    <style>
+    a {
+        display: block;
+		text-decoration: none;
+    }
+
+	.blog-post-link {
+        font-size: 1.25rem;
+    }
+    </style>
 <head>
 <body>
 <div class='main'>
+	<a href='..'>← Back to home</a>
+    <h1>Suneel's blog</h1>
+    <p>Unfettered access to my miscellaneous thoughts.</p>
 "
 
 # IFS is the delimiter used by for-loops in bash.
@@ -21,28 +33,32 @@ IFS=$(echo -en "\n\b")
 
 for blog_file in $(ls -1 $blog_posts_in)
 do
-	post_name=$(basename $blog_file .md)
-	html="<!DOCTYPE html>
+    post_name=$(basename $blog_file .md)
+    html="<!DOCTYPE html>
 <html>
 <head>
     <link rel='stylesheet' href='../root.css'>
-    <link rel='stylesheet' href='blog-post.css'>
+	<style>
+	a {
+        text-decoration: none;
+	}
+	</style>
     <!-- Provides syntax highlighting for code blocks: -->
     <link rel='stylesheet' href='prism/prism.css'>
 </head>
 <body>
 <div class='main'>
-	<a href='..'>&lt;- Back to posts</a>
+    <a href='./'>← Back to blog</a>
 $(mark2html "$blog_posts_in/$blog_file")
-	<a href='..'>&lt;- Back to blog</a>
+    <a href='./'>← Back to blog</a>
 </div>
 <script src='prism/prism.js'></script>
 </body>
 </html>"
-	echo "$html" > "$blog_posts_out/$post_name.html"
+    echo "$html" > "$blog_posts_out/$post_name.html"
 
     index="$index
-    <a href='$post_name.html'>$(basename $post_name .md)</a>
+    <a class='blog-post-link' href='$post_name.html'>$(basename $post_name .md)</a>
 "
 done
 

@@ -1,4 +1,5 @@
 # Swizzling Vectors with constexpr
+### Jan 1, 2022
 
 Generally speaking, if you wanted to swizzle a vector in C++, you probably know which swizzle you want at compile time. With constexpr, this becomes pretty simple:
 
@@ -8,12 +9,12 @@ Generally speaking, if you wanted to swizzle a vector in C++, you probably know 
 struct Vector {
     int x, y, z;
 
-	// Size will be inferred from the length of the string literal.
+    // Size will be inferred from the length of the string literal.
     template <size_t Size>
     constexpr std::array<int, Size-1> Swizzle(const char(&comps)[Size]) {
-		// Since the size of comps includes the NUL-terminator at the end,
-		// our result will be one shorter to only accomodate the relevant
-		// components.
+        // Since the size of comps includes the NUL-terminator at the end,
+        // our result will be one shorter to only accomodate the relevant
+        // components.
         std::array<int, Size-1> arr{};
         for (int i = 0; i < Size-1; i++) {
             switch (comps[i]) {
@@ -37,11 +38,11 @@ The template will handle a string literal of any length, returning an array of t
 
 ```cpp
 int main() {
-	Vector v{1, 2, 3};
-	auto reverse = v.Swizzle("zyx");
-	for (auto n : reverse)
-		std::cout << n << '\n';
-	std::cout.flush();
+    Vector v{1, 2, 3};
+    auto reverse = v.Swizzle("zyx");
+    for (auto n : reverse)
+        std::cout << n << '\n';
+    std::cout.flush();
 }
 ```
 ```shell
