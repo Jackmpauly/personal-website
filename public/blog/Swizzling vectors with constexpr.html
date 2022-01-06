@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='../root.css'>
+    <link rel='stylesheet' href='blog-post.css'>
+    <!-- Provides syntax highlighting for code blocks: -->
+    <link rel='stylesheet' href='prism/prism.css'>
+</head>
+<body>
+<div class='main'>
+	<a href='..'>&lt;- Back to posts</a>
+<h1> Swizzling Vectors with constexpr</h1>
+<p>Generally speaking, if you wanted to swizzle a vector in C++, you probably know which swizzle you want at compile time. With constexpr, this becomes pretty simple:</p>
+<pre><code class="language-cpp">#include &lt;array&gt;
+
+struct Vector {
+    int x, y, z;
+
+	// Size will be inferred from the length of the string literal.
+    template &lt;size_t Size&gt;
+    constexpr std::array&lt;int, Size-1&gt; Swizzle(const char(&amp;comps)[Size]) {
+		// Since the size of comps includes the NUL-terminator at the end,
+		// our result will be one shorter to only accomodate the relevant
+		// components.
+        std::array&lt;int, Size-1&gt; arr{};
+        for (int i = 0; i &lt; Size-1; i++) {
+            switch (comps[i]) {
+                case 'x':
+                    arr[i] = x;
+                    break;
+                case 'y':
+                    arr[i] = y;
+                    break;
+                case 'z':
+                    arr[i] = z;
+                    break;
+            }
+        }
+        return arr;
+    }
+};
+</code></pre>
+<p>The template will handle a string literal of any length, returning an array of the requested components.</p>
+<pre><code class="language-cpp">int main() {
+	Vector v{1, 2, 3};
+	auto reverse = v.Swizzle("zyx");
+	for (auto n : reverse)
+		std::cout &lt;&lt; n &lt;&lt; '\n';
+	std::cout.flush();
+}
+</code></pre>
+<pre><code class="language-shell">$ g++ swizzle.cpp -o swizzle
+$ ./swizzle
+3
+2
+1
+</code></pre>
+	<a href='..'>&lt;- Back to blog</a>
+</div>
+<script src='prism/prism.js'></script>
+</body>
+</html>

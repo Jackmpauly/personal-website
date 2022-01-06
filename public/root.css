@@ -43,15 +43,11 @@ h1 {
     font-weight: normal;
 }
 p {
-    font-size: 16px;
+    font-size: 18px;
 }
 h2 {
     font-size: 28px;
 }
-div > code {
-    white-space: pre-line;
-}
-
 .home-link {
 	display: block;
     text-decoration: none;

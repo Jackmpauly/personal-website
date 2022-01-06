@@ -1,0 +1,56 @@
+#!/bin/bash
+
+
+blog_posts_in="./blog-posts"
+blog_posts_out="../public/blog"
+blog_post_index="$blog_posts_out/index.html"
+
+index="
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='..root.css'>
+<head>
+<body>
+<div class='main'>
+"
+
+# IFS is the delimiter used by for-loops in bash.
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+
+for blog_file in $(ls -1 $blog_posts_in)
+do
+	post_name=$(basename $blog_file .md)
+	html="<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='../root.css'>
+    <link rel='stylesheet' href='blog-post.css'>
+    <!-- Provides syntax highlighting for code blocks: -->
+    <link rel='stylesheet' href='prism/prism.css'>
+</head>
+<body>
+<div class='main'>
+	<a href='..'>&lt;- Back to posts</a>
+$(mark2html "$blog_posts_in/$blog_file")
+	<a href='..'>&lt;- Back to blog</a>
+</div>
+<script src='prism/prism.js'></script>
+</body>
+</html>"
+	echo "$html" > "$blog_posts_out/$post_name.html"
+
+    index="$index
+    <a href='$post_name.html'>$(basename $post_name .md)</a>
+"
+done
+
+IFS=$SAVE_IFS
+
+index="$index
+</div>
+</body>
+</html>"
+
+echo "$index" > $blog_post_index
